@@ -2,32 +2,24 @@
 pragma solidity ^0.8.0;
 
 contract MyContract {
+   
+    uint id;
+    mapping (string=>uint) public nameToID;
     struct Student{
         uint id;
         string name;
-        uint age;
     }
-    //Student[] students;
-    mapping (uint => Student[]) students;
+    Student[] public students;
+    function store(uint _id) public {
+       id=_id; 
+    }
+    function show_student() public  view returns (Student[] memory){
+       return students;
+    }
+    function add(string memory _name,uint _id) public {
+        students.push(Student(_id,_name));
+        nameToID[_name]=_id;
+    }
 
-    function insertStudent(uint id,string memory name,uint age) public {
-        students[id]=Student(id,name,age);
-    }
-    function revome() public {
-      
-    }
-    function deleteByID(uint id) public {
-
-    }
-    function findByID(uint id) public returns (Student memory){
-        
-    }
-    function showStudent() public  view returns (Student[] memory){
-       // return students;
-    }
-    modifier checkContainsID(uint id) {
-        if(id<5) revert("Input not greate than five");
-        _;
-    }
 
 }
